@@ -37,3 +37,27 @@ body {
 .hamburger-active > span:nth-child(3) {
     @apply -rotate-45;
 }
+
+.reveal {
+    color: #0000;
+    background: linear-gradient(#0e7490 0 0), linear-gradient(#0e7490 0 0);
+    background-size: 0 100%;
+    background-position: 0 0;
+    -webkit-background-clip: padding-box, text;
+    background-clip: padding-box, text;
+    background-repeat: no-repeat;
+    box-decoration-break: clone;
+    animation: t 1.2s 0.5s both, b 1.2s 1.3s both;
+}
+
+@keyframes t {
+    to {
+        background-size: 150% 100%;
+    }
+}
+
+@keyframes b {
+    to {
+        background-position: -200% 0, 0 0;
+    }
+}
