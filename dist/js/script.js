@@ -1,57 +1,56 @@
 // Navbar Fixed
 
-window.onscroll = function() {
-    const header = document.querySelector('header');
-    const fixedNav = header.offsetTop;
+window.onscroll = function () {
+  const header = document.querySelector("header");
+  const fixedNav = header.offsetTop;
 
-    if (window.pageYOffset > fixedNav){
-        header.classList.add('navbar-fixed');
-    } else {
-        header.classList.remove('navbar-fixed');
-    }
-}
-
+  if (window.pageYOffset > fixedNav) {
+    header.classList.add("navbar-fixed");
+  } else {
+    header.classList.remove("navbar-fixed");
+  }
+};
 
 // Hamburger
 
-const hamburger = document.querySelector('#hamburger');
-const navMenu = document.querySelector('#nav-menu');
+const hamburger = document.querySelector("#hamburger");
+const navMenu = document.querySelector("#nav-menu");
 
-hamburger.addEventListener('click', function () {
-    hamburger.classList.toggle('hamburger-active');
-    navMenu.classList.toggle('hidden');
+hamburger.addEventListener("click", function () {
+  hamburger.classList.toggle("hamburger-active");
+  navMenu.classList.toggle("hidden");
 });
 
 //Scroll Animate
 const links = document.querySelectorAll("#nav-menu ul a");
- 
+
 for (const link of links) {
   link.addEventListener("click", clickHandler);
 }
- 
+
 function clickHandler(e) {
   e.preventDefault();
   const href = this.getAttribute("href");
   const offsetTop = document.querySelector(href).offsetTop;
- 
+
   scroll({
     top: offsetTop,
-    behavior: "smooth"
+    behavior: "smooth",
   });
 }
 
 // Text Type
-var TxtRotate = function(el, toRotate, period) {
+var TxtRotate = function (el, toRotate, period) {
   this.toRotate = toRotate;
   this.el = el;
   this.loopNum = 0;
   this.period = parseInt(period, 10) || 2000;
-  this.txt = '';
+  this.txt = "";
   this.tick();
   this.isDeleting = false;
 };
 
-TxtRotate.prototype.tick = function() {
+TxtRotate.prototype.tick = function () {
   var i = this.loopNum % this.toRotate.length;
   var fullTxt = this.toRotate[i];
 
@@ -61,32 +60,34 @@ TxtRotate.prototype.tick = function() {
     this.txt = fullTxt.substring(0, this.txt.length + 1);
   }
 
-  this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+  this.el.innerHTML = '<span class="wrap">' + this.txt + "</span>";
 
   var that = this;
   var delta = 100;
 
-  if (this.isDeleting) { delta /= 2; }
+  if (this.isDeleting) {
+    delta /= 2;
+  }
 
   if (!this.isDeleting && this.txt === fullTxt) {
     delta = this.period;
     this.isDeleting = true;
-  } else if (this.isDeleting && this.txt === '') {
+  } else if (this.isDeleting && this.txt === "") {
     this.isDeleting = false;
     this.loopNum++;
     delta = 500;
   }
 
-  setTimeout(function() {
+  setTimeout(function () {
     that.tick();
   }, delta);
 };
 
-window.onload = function() {
-  var elements = document.getElementsByClassName('txt-rotate');
-  for (var i=0; i<elements.length; i++) {
-    var toRotate = elements[i].getAttribute('data-rotate');
-    var period = elements[i].getAttribute('data-period');
+window.onload = function () {
+  var elements = document.getElementsByClassName("txt-rotate");
+  for (var i = 0; i < elements.length; i++) {
+    var toRotate = elements[i].getAttribute("data-rotate");
+    var period = elements[i].getAttribute("data-period");
     if (toRotate) {
       new TxtRotate(elements[i], JSON.parse(toRotate), period);
     }
@@ -97,3 +98,9 @@ window.onload = function() {
   css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666 }";
   document.body.appendChild(css);
 };
+
+// AOS
+
+AOS.init({
+  duration: 1000,
+});
